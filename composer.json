@@ -1,5 +1,5 @@
 {
-    "name": "mtt/delivery-bundle",
+    "name": "mtt/shipping-bundle",
     "require": {
         "php": ">=7.1",
         "symfony/symfony": "~3.4.0",
