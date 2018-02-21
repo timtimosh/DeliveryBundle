@@ -1,0 +1,10 @@
+services:
+    mtt_shipping.shippment_repository_service:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - Mtt\ShippingBundle\Entity\Shipping
+
+    mtt_shipping.shippment_service:
+        class: Mtt\ShippingBundle\Service\ShippmentService
+        arguments: ['@mtt_shipping.shippment_repository_service']
