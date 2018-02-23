@@ -1,14 +1,13 @@
 <?php
 
-namespace Mtt\ShippingBundle;
+namespace Mtt\ShippingBundle\Model;
 
 use \pdt256\Shipping\RateAdapter;
 
 abstract class AbstractRate extends RateAdapter
 {
-    protected abstract function getRate(array $options);
-
-    public function calculateShippment(array $options){
-        return $this->getRate($options);
+    public function getRates(){
+        $this->rates = [];
+        return parent::getRates();
     }
 }

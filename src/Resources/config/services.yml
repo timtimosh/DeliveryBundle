@@ -1,10 +1,32 @@
 services:
-    mtt_shipping.shippment_repository_service:
+    mtt_shipping.shipping_repository_service:
         class: Doctrine\ORM\EntityRepository
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - Mtt\ShippingBundle\Entity\Shipping
+            - Mtt\ShippingBundle\Entity\ShipmentMethod
+        lazy: true
 
-    mtt_shipping.shippment_service:
-        class: Mtt\ShippingBundle\Service\ShippmentService
-        arguments: ['@mtt_shipping.shippment_repository_service']
+    mtt_shipping.shipment_method.rater.null:
+        class: Mtt\ShippingBundle\Model\NullRater
+        lazy: true
+
+    mtt_shipping.shipment_method.nova-poshta:
+        class: Mtt\ShippingBundle\Model\NovaPoshta\NPShipmentMethod
+        calls:
+            - method: setRater
+              arguments: ['@mtt_shipping.shipment_method.rater.null']
+        lazy: true
+
+    mtt_shipping.shipment_method.self:
+        class: Mtt\ShippingBundle\Model\SelfDelivery\SDShipmentMethod
+        lazy: true
+
+    mtt_shipping.shipping_service:
+        class: Mtt\ShippingBundle\Service\ShippingService
+        arguments: ['@mtt_shipping.shipping_repository_service']
+        calls:
+            - method: addShipmentMethod
+              arguments: [ 'mtt_shipping.shipment_method.nova-poshta', '@mtt_shipping.shipment_method.nova-poshta']
+            - method: addShipmentMethod
+              arguments: ['mtt_shipping.shipment_method.self', '@mtt_shipping.shipment_method.self']
+        lazy: true

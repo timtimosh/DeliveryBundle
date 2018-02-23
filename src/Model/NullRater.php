@@ -1,11 +1,11 @@
 <?php
 
-namespace Mtt\ShippingBundle\NovaPoshta;
+namespace Mtt\ShippingBundle\Model;
 
 use \pdt256\Shipping\RateAdapter;
 use \pdt256\Shipping\Quote;
 
-class Rate extends RateAdapter
+class NullRater extends AbstractRate
 {
 
     public function __construct($options = [])

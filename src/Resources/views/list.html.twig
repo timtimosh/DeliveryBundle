@@ -1,0 +1,3 @@
+{% for shipment in aviableShippingMethods %}
+    {% include shipment.getTemplate() with {'shipment': shipment} only %}
+{% endfor %}

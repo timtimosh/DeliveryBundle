@@ -1,0 +1,8 @@
+easy_admin:
+    entities:
+        Shipping:
+            class: 'Mtt\ShippingBundle\Entity\ShipmentMethod'
+            form:
+                fields: ['name', 'active', 'template', 'shipmentMethodServiceName']
+            list:
+                fields: ['name', 'active']
